@@ -2,7 +2,7 @@ import random
 
 from src.poke.pokemon import Pokemon,Move
 class Stats:
-    def __init__(self,base_hp,base_speed,base_atk,base_def,base_sp_atk,base_sp_def):
+    def __init__(self, base_hp, base_atk, base_def, base_sp_atk, base_sp_def, base_speed):
         self.base_hp = base_hp
         self.base_speed = base_speed
         self.base_atk = base_atk
