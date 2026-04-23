@@ -21,10 +21,16 @@ class Battle:
             return "It's not very effective..."
         return ""
 
-    def get_type_multiplier(self,move_type,def_types):
+    def get_type_multiplier(self, move_type, def_types):
         multiplier = 1
+
+        if isinstance(def_types, str):
+            multiplier *= TYPE_CHART.get(move_type, {}).get(def_types, 1)
+            return multiplier
+
         for poke_type in def_types:
             multiplier *= TYPE_CHART.get(move_type, {}).get(poke_type, 1)
+
         return multiplier
     def attack(self, atkpokemon, defpokemon):
         try:
