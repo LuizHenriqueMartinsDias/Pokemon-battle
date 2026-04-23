@@ -1,5 +1,8 @@
 import random
 
+from src.poke.storage import TYPE_CHART
+
+
 class Battle:
     def __init__(self,trainer1,trainer2):
         self.attacker = trainer1
@@ -8,9 +11,21 @@ class Battle:
         atk_pokemon = self.attacker.choose()
         def_pokemon = self.defender.choose()
         self.attack(atk_pokemon,def_pokemon)
-    #def get_modifier(self,atkpokemon,defpokemon):
-    #    if atkpokemon.type =
 
+    def get_type_message(self,multiplier):
+        if multiplier == 0:
+            return "It doesn't affect..."
+        elif multiplier >= 2:
+            return "It's super effective!"
+        elif multiplier < 1:
+            return "It's not very effective..."
+        return ""
+
+    def get_type_multiplier(self,move_type,def_types):
+        multiplier = 1
+        for poke_type in def_types:
+            multiplier *= TYPE_CHART.get(move_type, {}).get(poke_type, 1)
+        return multiplier
     def attack(self, atkpokemon, defpokemon):
         try:
             if atkpokemon.hp <= 0:
@@ -46,14 +61,21 @@ class Battle:
             if atkpokemon.speed > defpokemon.speed:
                 print(f"\n⚡ {atkpokemon.name} é mais rápido!\n")
 
-                dmg = self.calculate_dmg(atkpokemon, defpokemon, atk1)
+                dmg = self.calculate_dmg(atkpokemon, defpokemon, atk1,self.get_type_multiplier(atk1.move_type,defpokemon.poke_types))
+                message = self.get_type_message(self.get_type_multiplier(atk1.move_type,defpokemon.poke_types))
+
                 print(f"💥 {atkpokemon.name} usou {atk1.name} e causou {dmg} de dano!")
+                if message:
+                    print(message)
                 defpokemon.hp -= dmg
                 print(f"❤️ {defpokemon.name} agora tem {defpokemon.hp} HP")
 
                 if not (defpokemon.hp <= 0):
-                    dmg = self.calculate_dmg(defpokemon, atkpokemon, atk2,calc_type_multiplier)
+                    dmg = self.calculate_dmg(defpokemon, atkpokemon, atk2,self.get_type_multiplier(atk2.move_type,atkpokemon.poke_types))
+                    message = self.get_type_message(self.get_type_multiplier(atk2.move_type, atkpokemon.poke_types))
                     print(f"\n💥 {defpokemon.name} contra-atacou com {atk2.name} causando {dmg}!")
+                    if message:
+                        print(message)
                     atkpokemon.hp -= dmg
                     print(f"❤️ {atkpokemon.name} agora tem {atkpokemon.hp} HP")
 
@@ -66,14 +88,22 @@ class Battle:
             else:
                 print(f"\n⚡ {defpokemon.name} é mais rápido!\n")
 
-                dmg = self.calculate_dmg(defpokemon, atkpokemon, atk2)
+                dmg = self.calculate_dmg(defpokemon, atkpokemon, atk2,self.get_type_multiplier(atk2.move_type,atkpokemon.poke_types))
+                message = self.get_type_message(self.get_type_multiplier(atk2.move_type, atkpokemon.poke_types))
+
                 print(f"💥 {defpokemon.name} usou {atk2.name} e causou {dmg} de dano!")
+                if message:
+                    print(message)
                 atkpokemon.hp -= dmg
                 print(f"❤️ {atkpokemon.name} agora tem {atkpokemon.hp} HP")
 
                 if not (atkpokemon.hp <= 0):
-                    dmg = self.calculate_dmg(atkpokemon, defpokemon, atk1)
+                    dmg = self.calculate_dmg(atkpokemon, defpokemon, atk1,self.get_type_multiplier(atk1.move_type,defpokemon.poke_types))
+                    message = self.get_type_message(self.get_type_multiplier(atk1.move_type, defpokemon.poke_types))
+
                     print(f"\n💥 {atkpokemon.name} respondeu com {atk1.name} causando {dmg}!")
+                    if message:
+                        print(message)
                     defpokemon.hp -= dmg
                     print(f"❤️ {defpokemon.name} agora tem {defpokemon.hp} HP")
 
@@ -89,6 +119,7 @@ class Battle:
                 print("ATACANTE GANHOU")
 
     def calculate_dmg(self,atker,dfder,move,type_multiplier=1.0):
+
         if move.category == "physical":
             A = atker.atk
             D = dfder.def_
