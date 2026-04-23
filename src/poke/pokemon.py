@@ -4,7 +4,10 @@ class Pokemon:
         self.stats = stats
         self.name = name
         self.moves = moves
-        self.poke_type = poke_types
+        if "/" in poke_types:
+            self.poke_types = poke_types.split("/")
+        else:
+            self.poke_types = poke_types
         self.lvl = lvl
 
         self.hp = self.stats.calc_hp(self.lvl)
