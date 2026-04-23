@@ -124,7 +124,7 @@ class Battle:
             A = atker.atk
             D = dfder.def_
         else:
-            A = dfder.sp_atk
+            A =atker.sp_atk
             D =dfder.sp_def
 
         damage = (((2 * atker.lvl / 5 + 2) * move.power * A / D) / 50) + 2
