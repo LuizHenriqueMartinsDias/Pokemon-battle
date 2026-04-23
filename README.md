@@ -1,3 +1,4 @@
+
 # ⚔️ Pokémon Battle Simulator (Python)
 
 A turn-based Pokémon battle simulator built in Python, featuring core battle mechanics such as stat calculation, move categories, and type effectiveness.
@@ -33,6 +34,7 @@ A turn-based Pokémon battle simulator built in Python, featuring core battle me
 
 ## 🏗️ Project Structure
 
+```bash
 src/
 │
 ├── poke/
@@ -42,56 +44,69 @@ src/
 │   ├── UI.py          # User interaction
 │
 ├── main.py            # Entry point
+````
 
 ---
 
 ## 🧩 Core Classes
 
-### pokemon.py
+### `pokemon.py`
 
-#### Pokemon
+#### `Pokemon`
+
 Represents a Pokémon with:
-- Name
-- Type
-- Moves
-- Level
-- Current HP
-- Calculated stats (HP, Attack, Defense, etc.)
 
-#### Stats
+* Name
+* Type
+* Moves
+* Level
+* Current HP
+* Calculated stats (HP, Attack, Defense, etc.)
+
+#### `Stats`
+
 Handles:
-- Base stats
-- IVs (randomized or defined)
-- EVs (default or customizable)
-- Final stat calculation based on level
 
-#### Move
+* Base stats
+* IVs (randomized or defined)
+* EVs (default or customizable)
+* Final stat calculation based on level
+
+#### `Move`
+
 Represents a move with:
-- Name
-- Type
-- Category (physical or special)
-- Power
-- Accuracy
+
+* Name
+* Type
+* Category (`physical` or `special`)
+* Power
+* Accuracy
 
 ---
 
 ## ⚙️ Damage Formula
 
+```text
 Damage = (((2 * Level / 5 + 2) * Power * A / D) / 50 + 2) * Modifier
+```
 
 ---
 
 ## 🎮 How to Play
 
 1. Run the program:
-   python main.py
+
+```bash
+python main.py
+```
 
 2. Choose 3 Pokémon for your team
 
 3. Battle begins:
-   - Select moves each turn
-   - Faster Pokémon attacks first
-   - Continue until one team is defeated
+
+   * Select moves each turn
+   * Faster Pokémon attacks first
+   * Continue until one team is defeated
 
 ---
 
@@ -104,3 +119,6 @@ This project is for educational purposes.
 ## 👨‍💻 Author
 
 Developed by Luiz Henrique
+
+```
+```
