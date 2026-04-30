@@ -14,20 +14,23 @@ class UserInterface:
         team = []
 
         while len(team) < 3:
-            print("\n📜 Choose your Pokémon:")
-            print("-"*40)
+            try:
+                print("\n📜 Choose your Pokémon:")
+                print("-"*40)
 
-            for i, pokemon in enumerate(pokemon_list):
-                print(f"{i} - {pokemon.name}")
+                for i, pokemon in enumerate(pokemon_list):
+                    print(f"{i} - {pokemon.name}")
 
-            option = int(input("\n👉 Select a Pokémon: "))
-            chosen = pokemon_list[option]
+                option = int(input("\n👉 Select a Pokémon: "))
+                chosen = pokemon_list[option]
 
-            print(f"\n✅ You chose {chosen.name}!")
-            team.append(chosen)
-            pokemon_list.pop(option)
+                print(f"\n✅ You chose {chosen.name}!")
+                team.append(chosen)
+                pokemon_list.pop(option)
 
-            print(f"📦 Team size: {len(team)}/3")
+                print(f"📦 Team size: {len(team)}/3")
+            except ValueError:
+                pass
 
         trainer = Trainer(team)
 

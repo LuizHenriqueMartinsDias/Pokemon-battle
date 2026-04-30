@@ -67,25 +67,61 @@ class Battle:
             if atkpokemon.speed > defpokemon.speed:
                 print(f"\n⚡ {atkpokemon.name} é mais rápido!\n")
 
-                dmg = self.calculate_dmg(atkpokemon, defpokemon, atk1,self.get_type_multiplier(atk1.move_type,defpokemon.poke_types))
-                message = self.get_type_message(self.get_type_multiplier(atk1.move_type,defpokemon.poke_types))
+                # Ataque do jogador
+                if atk1.effect:
+                    atk1.apply_effect(atkpokemon, defpokemon)
 
-                print(f"💥 {atkpokemon.name} usou {atk1.name} e causou {dmg} de dano!")
-                if message:
-                    print(message)
-                defpokemon.hp -= dmg
-                print(f"❤️ {defpokemon.name} agora tem {defpokemon.hp} HP")
+                dmg = self.calculate_dmg(
+                    atkpokemon,
+                    defpokemon,
+                    atk1,
+                    self.get_type_multiplier(atk1.move_type, defpokemon.poke_types)
+                )
 
-                if not (defpokemon.hp <= 0):
-                    dmg = self.calculate_dmg(defpokemon, atkpokemon, atk2,self.get_type_multiplier(atk2.move_type,atkpokemon.poke_types))
-                    message = self.get_type_message(self.get_type_multiplier(atk2.move_type, atkpokemon.poke_types))
-                    print(f"\n💥 {defpokemon.name} contra-atacou com {atk2.name} causando {dmg}!")
+                message = self.get_type_message(
+                    self.get_type_multiplier(atk1.move_type, defpokemon.poke_types)
+                )
+
+                if dmg is None:
+                    pass
+                else:
+                    print(f"💥 {atkpokemon.name} usou {atk1.name} e causou {dmg} de dano!")
+
                     if message:
                         print(message)
-                    atkpokemon.hp -= dmg
-                    print(f"❤️ {atkpokemon.name} agora tem {atkpokemon.hp} HP")
+
+                    defpokemon.hp -= dmg
+                    print(f"❤️ {defpokemon.name} agora tem {defpokemon.hp} HP")
+
+                if not (defpokemon.hp <= 0):
+                    # Ataque do defensor
+                    if atk2.effect:
+                        atk2.apply_effect(defpokemon, atkpokemon)
+
+                    dmg = self.calculate_dmg(
+                        defpokemon,
+                        atkpokemon,
+                        atk2,
+                        self.get_type_multiplier(atk2.move_type, atkpokemon.poke_types)
+                    )
+
+                    message = self.get_type_message(
+                        self.get_type_multiplier(atk2.move_type, atkpokemon.poke_types)
+                    )
+
+                    if dmg is None:
+                        pass
+                    else:
+                        print(f"\n💥 {defpokemon.name} contra-atacou com {atk2.name} causando {dmg}!")
+
+                        if message:
+                            print(message)
+
+                        atkpokemon.hp -= dmg
+                        print(f"❤️ {atkpokemon.name} agora tem {atkpokemon.hp} HP")
 
                     self.attack(atkpokemon, defpokemon)
+
                 else:
                     print(f"\n❌ {defpokemon.name} desmaiou!")
                     self.defender.team.remove(defpokemon)
@@ -94,56 +130,102 @@ class Battle:
             else:
                 print(f"\n⚡ {defpokemon.name} é mais rápido!\n")
 
-                dmg = self.calculate_dmg(defpokemon, atkpokemon, atk2,self.get_type_multiplier(atk2.move_type,atkpokemon.poke_types))
-                message = self.get_type_message(self.get_type_multiplier(atk2.move_type, atkpokemon.poke_types))
+                # Ataque do defensor
+                if atk2.effect:
+                    atk2.apply_effect(defpokemon, atkpokemon)
 
-                print(f"💥 {defpokemon.name} usou {atk2.name} e causou {dmg} de dano!")
-                if message:
-                    print(message)
-                atkpokemon.hp -= dmg
-                print(f"❤️ {atkpokemon.name} agora tem {atkpokemon.hp} HP")
+                dmg = self.calculate_dmg(
+                    defpokemon,
+                    atkpokemon,
+                    atk2,
+                    self.get_type_multiplier(atk2.move_type, atkpokemon.poke_types)
+                )
 
-                if not (atkpokemon.hp <= 0):
-                    dmg = self.calculate_dmg(atkpokemon, defpokemon, atk1,self.get_type_multiplier(atk1.move_type,defpokemon.poke_types))
-                    message = self.get_type_message(self.get_type_multiplier(atk1.move_type, defpokemon.poke_types))
+                message = self.get_type_message(
+                    self.get_type_multiplier(atk2.move_type, atkpokemon.poke_types)
+                )
 
-                    print(f"\n💥 {atkpokemon.name} respondeu com {atk1.name} causando {dmg}!")
+                if dmg is None:
+                    pass
+                else:
+                    print(f"💥 {defpokemon.name} usou {atk2.name} e causou {dmg} de dano!")
+
                     if message:
                         print(message)
-                    defpokemon.hp -= dmg
-                    print(f"❤️ {defpokemon.name} agora tem {defpokemon.hp} HP")
+
+                    atkpokemon.hp -= dmg
+                    print(f"❤️ {atkpokemon.name} agora tem {atkpokemon.hp} HP")
+
+                if not (atkpokemon.hp <= 0):
+                    # Ataque do jogador
+                    if atk1.effect:
+                        atk1.apply_effect(atkpokemon, defpokemon)
+
+                    dmg = self.calculate_dmg(
+                        atkpokemon,
+                        defpokemon,
+                        atk1,
+                        self.get_type_multiplier(atk1.move_type, defpokemon.poke_types)
+                    )
+
+                    message = self.get_type_message(
+                        self.get_type_multiplier(atk1.move_type, defpokemon.poke_types)
+                    )
+
+                    if dmg is None:
+                        pass
+                    else:
+                        print(f"\n💥 {atkpokemon.name} respondeu com {atk1.name} causando {dmg}!")
+
+                        if message:
+                            print(message)
+
+                        defpokemon.hp -= dmg
+                        print(f"❤️ {defpokemon.name} agora tem {defpokemon.hp} HP")
 
                     self.attack(atkpokemon, defpokemon)
+
                 else:
                     print(f"\n❌ {atkpokemon.name} desmaiou!")
                     self.attacker.team.remove(atkpokemon)
                     self.attack(self.attacker.choose(), defpokemon)
+
         except IndexError:
             if len(self.attacker.team) == 0:
                 print("DEFENSOR GANHOU")
             else:
                 print("ATACANTE GANHOU")
 
-    def calculate_dmg(self,atker,dfder,move,type_multiplier=1.0):
+
+    def get_stage_multiplier(self, stage):
+        if stage >= 0:
+            return (2 + stage) / 2
+        return 2 / (2 - stage)
+
+    def calculate_dmg(self, atker, dfder, move, type_multiplier=1.0):
+        if move.power == 0 or move.category == "status":
+            return None
 
         if move.category == "physical":
-            A = atker.atk
-            D = dfder.def_
+            A = atker.atk * self.get_stage_multiplier(atker.atk_stage)
+            D = dfder.def_ * self.get_stage_multiplier(dfder.def_stage)
         else:
-            A =atker.sp_atk
-            D =dfder.sp_def
+            A = atker.sp_atk * self.get_stage_multiplier(atker.sp_atk_stage)
+            D = dfder.sp_def * self.get_stage_multiplier(dfder.sp_def_stage)
 
         damage = (((2 * atker.lvl / 5 + 2) * move.power * A / D) / 50) + 2
+
         stab = 1.0
         if move.move_type in atker.poke_types:
             stab = 1.5
+
         critical = 1.5 if random.random() < 0.1 else 1.0
-
-
         random_factor = random.uniform(0.85, 1.0)
 
         modifier = stab * type_multiplier * critical * random_factor
+
         return int(damage * modifier)
+
 
 class Trainer:
     def __init__(self,team):
