@@ -94,13 +94,19 @@ Damage = (((2 * Level / 5 + 2) * Power * A / D) / 50 + 2) * Modifier
 
 ## 🎮 How to Play
 
-1. Run the program:
+Run commands from the project root (not from inside `src/`):
 
+**Terminal version:**
 ```bash
-python main.py
+python -m src.main
 ```
 
-2. Choose 3 Pokémon for your team
+**Graphical version (Tkinter):**
+```bash
+python -m src.main_gui
+```
+
+1. Choose 3 Pokémon for your team
 
 3. Battle begins:
 

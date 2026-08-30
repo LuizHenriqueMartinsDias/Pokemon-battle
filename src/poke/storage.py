@@ -359,6 +359,11 @@ pokemon_list = [
     sylveon
 ]
 
+
+def get_starting_roster():
+    return list(pokemon_list)
+
+
 TYPE_CHART = {
     "Normal": {
         "Rock": 0.5,

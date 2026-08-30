@@ -1,4 +1,4 @@
-from poke.UI import UserInterface
+from src.poke.UI import UserInterface
 
 def main():
     menu = UserInterface()
