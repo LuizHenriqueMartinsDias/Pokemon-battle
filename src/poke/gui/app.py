@@ -1,5 +1,6 @@
 import tkinter as tk
 
+from src.poke.gui.battle_frame import BattleFrame
 from src.poke.gui.team_select_frame import TeamSelectFrame
 
 
@@ -20,10 +21,9 @@ class PokeBattleApp:
         team_select.grid(row=0, column=0, sticky="nsew")
         self.frames["team_select"] = team_select
 
-        battle_placeholder = tk.Frame(container)
-        tk.Label(battle_placeholder, text="⚔️ Battle screen coming soon").pack(pady=20)
-        battle_placeholder.grid(row=0, column=0, sticky="nsew")
-        self.frames["battle"] = battle_placeholder
+        battle = BattleFrame(container, self)
+        battle.grid(row=0, column=0, sticky="nsew")
+        self.frames["battle"] = battle
 
         self.show_frame("team_select")
 
@@ -31,6 +31,7 @@ class PokeBattleApp:
         self.frames[name].tkraise()
 
     def start_battle(self, trainer, defender):
+        self.frames["battle"].start(trainer, defender)
         self.show_frame("battle")
 
     def run(self):

@@ -41,4 +41,5 @@ class Move:
 
     def apply_effect(self, user, target):
         if self.effect:
-            self.effect(user, target)
+            return self.effect(user, target)
+        return None

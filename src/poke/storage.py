@@ -60,78 +60,76 @@ def bulk_up_effect(user, target):
     user.atk_stage = increase_stage(user.atk_stage, 1)
     user.def_stage = increase_stage(user.def_stage, 1)
 
-    print(f"{user.name}'s Attack rose!")
-    print(f"{user.name}'s Defense rose!")
+    return f"{user.name}'s Attack rose!\n{user.name}'s Defense rose!"
 
 
 def swords_dance_effect(user, target):
     user.atk_stage = increase_stage(user.atk_stage, 2)
 
-    print(f"{user.name}'s Attack sharply rose!")
+    return f"{user.name}'s Attack sharply rose!"
 
 
 def calm_mind_effect(user, target):
     user.sp_atk_stage = increase_stage(user.sp_atk_stage, 1)
     user.sp_def_stage = increase_stage(user.sp_def_stage, 1)
 
-    print(f"{user.name}'s Special Attack rose!")
-    print(f"{user.name}'s Special Defense rose!")
+    return f"{user.name}'s Special Attack rose!\n{user.name}'s Special Defense rose!"
 
 
 def agility_effect(user, target):
     user.speed_stage = increase_stage(user.speed_stage, 2)
 
-    print(f"{user.name}'s Speed sharply rose!")
+    return f"{user.name}'s Speed sharply rose!"
 
 
 def iron_defense_effect(user, target):
     user.def_stage = increase_stage(user.def_stage, 2)
 
-    print(f"{user.name}'s Defense sharply rose!")
+    return f"{user.name}'s Defense sharply rose!"
 
 
 def growl_effect(user, target):
     target.atk_stage = decrease_stage(target.atk_stage, 1)
 
-    print(f"{target.name}'s Attack fell!")
+    return f"{target.name}'s Attack fell!"
 
 
 def tail_whip_effect(user, target):
     target.def_stage = decrease_stage(target.def_stage, 1)
 
-    print(f"{target.name}'s Defense fell!")
+    return f"{target.name}'s Defense fell!"
 
 
 def leer_effect(user, target):
     target.def_stage = decrease_stage(target.def_stage, 1)
 
-    print(f"{target.name}'s Defense fell!")
+    return f"{target.name}'s Defense fell!"
 
 
 def screech_effect(user, target):
     target.def_stage = decrease_stage(target.def_stage, 2)
 
-    print(f"{target.name}'s Defense harshly fell!")
+    return f"{target.name}'s Defense harshly fell!"
 
 
 def metal_sound_effect(user, target):
     target.sp_def_stage = decrease_stage(target.sp_def_stage, 2)
 
-    print(f"{target.name}'s Special Defense harshly fell!")
+    return f"{target.name}'s Special Defense harshly fell!"
 
 
 def recover_effect(user, target):
     heal = user.max_hp // 2
     user.hp = min(user.hp + heal, user.max_hp)
 
-    print(f"{user.name} recovered HP!")
+    return f"{user.name} recovered HP!"
 
 
 def roost_effect(user, target):
     heal = user.max_hp // 2
     user.hp = min(user.hp + heal, user.max_hp)
 
-    print(f"{user.name} restored HP!")
+    return f"{user.name} restored HP!"
 
 
 # =========================
